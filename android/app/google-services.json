@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "972831640150",
+    "project_id": "tms-abt",
+    "storage_bucket": "tms-abt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972831640150:android:498c19ebdb9c5e5936c9f7",
+        "android_client_info": {
+          "package_name": "com.abt.tms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972831640150-pv3an5d0b3brcgraq08ncf4hps9d5im2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abt.tms",
+            "certificate_hash": "27f2b312387fb4dfa0ce3352560c9ab2889e2d2c"
+          }
+        },
+        {
+          "client_id": "972831640150-4c5453l51v8o32g2cj4nik6no404cdu4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSFvLKg93wTgMhwnMEcs227IMd79M6b3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972831640150-4c5453l51v8o32g2cj4nik6no404cdu4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
