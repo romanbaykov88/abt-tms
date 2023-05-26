@@ -19,8 +19,7 @@ class LoginScreen extends StatelessWidget {
           listener: (context, state) {
             state.when((account) {
               if (account != null) {
-                Navigator.of(context).pushNamed('/select');
-                //Navigator.of(context).pushNamed('/select');
+                Navigator.of(context).pushReplacementNamed('/select');
               }
             }, initial: () {}, loading: () {});
           },
