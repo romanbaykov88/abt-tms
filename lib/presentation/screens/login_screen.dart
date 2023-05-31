@@ -17,11 +17,11 @@ class LoginScreen extends StatelessWidget {
         ),
         BlocListener<GoogleAuthCubit, GoogleAuthState>(
           listener: (context, state) {
-            state.when((account) {
+            state.when((account, client) {
               if (account != null) {
                 Navigator.of(context).pushReplacementNamed('/select');
               }
-            }, initial: () {}, loading: () {});
+            }, initial: (client) {}, loading: (client) {});
           },
           child: Container(),
         )

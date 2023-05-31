@@ -16,25 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GoogleAuthState {
+  AuthClient? get client => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account) $default, {
-    required TResult Function() initial,
-    required TResult Function() loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+        $default, {
+    required TResult Function(AuthClient? client) initial,
+    required TResult Function(AuthClient? client) loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account)? $default, {
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult? Function(AuthClient? client)? initial,
+    TResult? Function(AuthClient? client)? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account)? $default, {
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult Function(AuthClient? client)? initial,
+    TResult Function(AuthClient? client)? loading,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +64,10 @@ mixin _$GoogleAuthState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $GoogleAuthStateCopyWith<GoogleAuthState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -67,6 +75,8 @@ abstract class $GoogleAuthStateCopyWith<$Res> {
   factory $GoogleAuthStateCopyWith(
           GoogleAuthState value, $Res Function(GoogleAuthState) then) =
       _$GoogleAuthStateCopyWithImpl<$Res, GoogleAuthState>;
+  @useResult
+  $Res call({AuthClient? client});
 }
 
 /// @nodoc
@@ -78,13 +88,30 @@ class _$GoogleAuthStateCopyWithImpl<$Res, $Val extends GoogleAuthState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? client = freezed,
+  }) {
+    return _then(_value.copyWith(
+      client: freezed == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as AuthClient?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> {
+abstract class _$$_InitialCopyWith<$Res>
+    implements $GoogleAuthStateCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({AuthClient? client});
 }
 
 /// @nodoc
@@ -93,57 +120,84 @@ class __$$_InitialCopyWithImpl<$Res>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? client = freezed,
+  }) {
+    return _then(_$_Initial(
+      client: freezed == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as AuthClient?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Initial implements _Initial {
-  const _$_Initial();
+  const _$_Initial({this.client});
+
+  @override
+  final AuthClient? client;
 
   @override
   String toString() {
-    return 'GoogleAuthState.initial()';
+    return 'GoogleAuthState.initial(client: $client)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Initial);
+        (other.runtimeType == runtimeType &&
+            other is _$_Initial &&
+            (identical(other.client, client) || other.client == client));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, client);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account) $default, {
-    required TResult Function() initial,
-    required TResult Function() loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+        $default, {
+    required TResult Function(AuthClient? client) initial,
+    required TResult Function(AuthClient? client) loading,
   }) {
-    return initial();
+    return initial(client);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account)? $default, {
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult? Function(AuthClient? client)? initial,
+    TResult? Function(AuthClient? client)? loading,
   }) {
-    return initial?.call();
+    return initial?.call(client);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account)? $default, {
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult Function(AuthClient? client)? initial,
+    TResult Function(AuthClient? client)? loading,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial();
+      return initial(client);
     }
     return orElse();
   }
@@ -184,14 +238,25 @@ class _$_Initial implements _Initial {
 }
 
 abstract class _Initial implements GoogleAuthState {
-  const factory _Initial() = _$_Initial;
+  const factory _Initial({final AuthClient? client}) = _$_Initial;
+
+  @override
+  AuthClient? get client;
+  @override
+  @JsonKey(ignore: true)
+  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_LoadingCopyWith<$Res> {
+abstract class _$$_LoadingCopyWith<$Res>
+    implements $GoogleAuthStateCopyWith<$Res> {
   factory _$$_LoadingCopyWith(
           _$_Loading value, $Res Function(_$_Loading) then) =
       __$$_LoadingCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({AuthClient? client});
 }
 
 /// @nodoc
@@ -200,57 +265,84 @@ class __$$_LoadingCopyWithImpl<$Res>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? client = freezed,
+  }) {
+    return _then(_$_Loading(
+      client: freezed == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as AuthClient?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Loading implements _Loading {
-  const _$_Loading();
+  const _$_Loading({this.client});
+
+  @override
+  final AuthClient? client;
 
   @override
   String toString() {
-    return 'GoogleAuthState.loading()';
+    return 'GoogleAuthState.loading(client: $client)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Loading);
+        (other.runtimeType == runtimeType &&
+            other is _$_Loading &&
+            (identical(other.client, client) || other.client == client));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, client);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LoadingCopyWith<_$_Loading> get copyWith =>
+      __$$_LoadingCopyWithImpl<_$_Loading>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account) $default, {
-    required TResult Function() initial,
-    required TResult Function() loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+        $default, {
+    required TResult Function(AuthClient? client) initial,
+    required TResult Function(AuthClient? client) loading,
   }) {
-    return loading();
+    return loading(client);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account)? $default, {
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult? Function(AuthClient? client)? initial,
+    TResult? Function(AuthClient? client)? loading,
   }) {
-    return loading?.call();
+    return loading?.call(client);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account)? $default, {
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult Function(AuthClient? client)? initial,
+    TResult Function(AuthClient? client)? loading,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(client);
     }
     return orElse();
   }
@@ -291,16 +383,25 @@ class _$_Loading implements _Loading {
 }
 
 abstract class _Loading implements GoogleAuthState {
-  const factory _Loading() = _$_Loading;
+  const factory _Loading({final AuthClient? client}) = _$_Loading;
+
+  @override
+  AuthClient? get client;
+  @override
+  @JsonKey(ignore: true)
+  _$$_LoadingCopyWith<_$_Loading> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_GoogleAuthStateCopyWith<$Res> {
+abstract class _$$_GoogleAuthStateCopyWith<$Res>
+    implements $GoogleAuthStateCopyWith<$Res> {
   factory _$$_GoogleAuthStateCopyWith(
           _$_GoogleAuthState value, $Res Function(_$_GoogleAuthState) then) =
       __$$_GoogleAuthStateCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({GoogleSignInAccount? account});
+  $Res call({GoogleSignInAccount? account, AuthClient? client});
 }
 
 /// @nodoc
@@ -315,12 +416,17 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? account = freezed,
+    Object? client = freezed,
   }) {
     return _then(_$_GoogleAuthState(
       account: freezed == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as GoogleSignInAccount?,
+      client: freezed == client
+          ? _value.client
+          : client // ignore: cast_nullable_to_non_nullable
+              as AuthClient?,
     ));
   }
 }
@@ -328,14 +434,16 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GoogleAuthState implements _GoogleAuthState {
-  const _$_GoogleAuthState({required this.account});
+  const _$_GoogleAuthState({required this.account, required this.client});
 
   @override
   final GoogleSignInAccount? account;
+  @override
+  final AuthClient? client;
 
   @override
   String toString() {
-    return 'GoogleAuthState(account: $account)';
+    return 'GoogleAuthState(account: $account, client: $client)';
   }
 
   @override
@@ -343,11 +451,12 @@ class _$_GoogleAuthState implements _GoogleAuthState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GoogleAuthState &&
-            (identical(other.account, account) || other.account == account));
+            (identical(other.account, account) || other.account == account) &&
+            (identical(other.client, client) || other.client == client));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, account);
+  int get hashCode => Object.hash(runtimeType, account, client);
 
   @JsonKey(ignore: true)
   @override
@@ -358,33 +467,36 @@ class _$_GoogleAuthState implements _GoogleAuthState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account) $default, {
-    required TResult Function() initial,
-    required TResult Function() loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+        $default, {
+    required TResult Function(AuthClient? client) initial,
+    required TResult Function(AuthClient? client) loading,
   }) {
-    return $default(account);
+    return $default(account, client);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account)? $default, {
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult? Function(AuthClient? client)? initial,
+    TResult? Function(AuthClient? client)? loading,
   }) {
-    return $default?.call(account);
+    return $default?.call(account, client);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account)? $default, {
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+        $default, {
+    TResult Function(AuthClient? client)? initial,
+    TResult Function(AuthClient? client)? loading,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(account);
+      return $default(account, client);
     }
     return orElse();
   }
@@ -426,9 +538,13 @@ class _$_GoogleAuthState implements _GoogleAuthState {
 
 abstract class _GoogleAuthState implements GoogleAuthState {
   const factory _GoogleAuthState(
-      {required final GoogleSignInAccount? account}) = _$_GoogleAuthState;
+      {required final GoogleSignInAccount? account,
+      required final AuthClient? client}) = _$_GoogleAuthState;
 
   GoogleSignInAccount? get account;
+  @override
+  AuthClient? get client;
+  @override
   @JsonKey(ignore: true)
   _$$_GoogleAuthStateCopyWith<_$_GoogleAuthState> get copyWith =>
       throw _privateConstructorUsedError;

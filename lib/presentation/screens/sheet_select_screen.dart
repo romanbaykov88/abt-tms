@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tms/logic/blocs/authentication/google_auth_cubit.dart';
+import 'package:tms/presentation/screens/sheet_select_screen/sheet_list.dart';
 
 class SheetSelectScreen extends StatelessWidget {
   const SheetSelectScreen({super.key});
@@ -26,15 +27,19 @@ class SheetSelectScreen extends StatelessWidget {
           ),
           BlocBuilder<GoogleAuthCubit, GoogleAuthState>(
               builder: (context, GoogleAuthState state) {
-            // return state.when((account) => null, initial: ()=>const Text('Initialisation ...'))
-            return state.when((account) {
+            return state.when((account, client) {
               if (account == null) {
                 return const Text('Logged out...');
               }
-              return Text("${account.displayName}");
+              return Column(
+                children: [
+                  Text("${account.displayName}"),
+                  const SheetList(),
+                ],
+              );
             },
-                initial: () => const Text('Initialisation ...'),
-                loading: () => const Text('Loading ...'));
+                initial: (client) => const Text('Initialisation ...'),
+                loading: (client) => const Text('Loading ...'));
           })
         ]));
   }
