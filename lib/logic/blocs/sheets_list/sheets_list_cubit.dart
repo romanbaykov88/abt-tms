@@ -19,7 +19,7 @@ class SheetsListCubit extends Cubit<SheetsListState> {
     _googleAuthCubit = googleAuthCubit;
     _googleSignInListener =
         _googleAuthCubit?.stream.listen((GoogleAuthState event) {
-      event.when((account, client) {
+      event.when((account, client, headers) {
         getSheetsList();
       }, initial: (client) {}, loading: (client) {});
     });
@@ -33,6 +33,7 @@ class SheetsListCubit extends Cubit<SheetsListState> {
       final DriveApi driveApi = DriveApi(client);
       final FileList fileList = await driveApi.files.list(
           q: 'mimeType = \'application/vnd.google-apps.spreadsheet\'',
+          $fields: "files(id, name, mimeType, thumbnailLink)",
           pageSize: 100);
       emit(SheetsListState(fileList: fileList));
     } else {

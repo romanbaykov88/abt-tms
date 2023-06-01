@@ -9,5 +9,6 @@ class GoogleAuthState with _$GoogleAuthState {
   const factory GoogleAuthState({
     required GoogleSignInAccount? account,
     required AuthClient? client,
+    required Map<String, String>? headers,
   }) = _GoogleAuthState;
 }

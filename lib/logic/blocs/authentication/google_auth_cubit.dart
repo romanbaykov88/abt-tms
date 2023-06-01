@@ -33,7 +33,8 @@ class GoogleAuthCubit extends Cubit<GoogleAuthState> {
     emit(const GoogleAuthState.loading());
     GoogleSignInAccount? account = await _googleSignIn.signIn();
     AuthClient? client = await _googleSignIn.authenticatedClient();
-    return emit(GoogleAuthState(account: account, client: client));
+    final Map<String, String>? headers = await account?.authHeaders;
+    return emit(GoogleAuthState(account: account, client: client, headers: headers));
   }
 
   Future<void> signInSilently() async {
@@ -42,14 +43,16 @@ class GoogleAuthCubit extends Cubit<GoogleAuthState> {
     if (account == null) {
       return await signIn();
     }
+    final Map<String, String> headers = await account.authHeaders;
     AuthClient? client = await _googleSignIn.authenticatedClient();
-    return emit(GoogleAuthState(account: account, client: client));
+    return emit(GoogleAuthState(account: account, client: client, headers: headers));
   }
 
   Future<void> signOut() async {
     GoogleSignInAccount? account = await _googleSignIn.signOut();
     AuthClient? client = await _googleSignIn.authenticatedClient();
-    return emit(GoogleAuthState(account: account, client: client));
+    final Map<String, String>? headers = await account?.authHeaders;
+    return emit(GoogleAuthState(account: account, client: client, headers: headers));
   }
 
   @override

@@ -19,7 +19,8 @@ mixin _$GoogleAuthState {
   AuthClient? get client => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
@@ -27,7 +28,8 @@ mixin _$GoogleAuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
@@ -35,7 +37,8 @@ mixin _$GoogleAuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
@@ -168,7 +171,8 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
@@ -179,7 +183,8 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
@@ -190,7 +195,8 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
@@ -313,7 +319,8 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
@@ -324,7 +331,8 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
@@ -335,7 +343,8 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
@@ -401,7 +410,10 @@ abstract class _$$_GoogleAuthStateCopyWith<$Res>
       __$$_GoogleAuthStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({GoogleSignInAccount? account, AuthClient? client});
+  $Res call(
+      {GoogleSignInAccount? account,
+      AuthClient? client,
+      Map<String, String>? headers});
 }
 
 /// @nodoc
@@ -417,6 +429,7 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
   $Res call({
     Object? account = freezed,
     Object? client = freezed,
+    Object? headers = freezed,
   }) {
     return _then(_$_GoogleAuthState(
       account: freezed == account
@@ -427,6 +440,10 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
           ? _value.client
           : client // ignore: cast_nullable_to_non_nullable
               as AuthClient?,
+      headers: freezed == headers
+          ? _value._headers
+          : headers // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
     ));
   }
 }
@@ -434,16 +451,29 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_GoogleAuthState implements _GoogleAuthState {
-  const _$_GoogleAuthState({required this.account, required this.client});
+  const _$_GoogleAuthState(
+      {required this.account,
+      required this.client,
+      required final Map<String, String>? headers})
+      : _headers = headers;
 
   @override
   final GoogleSignInAccount? account;
   @override
   final AuthClient? client;
+  final Map<String, String>? _headers;
+  @override
+  Map<String, String>? get headers {
+    final value = _headers;
+    if (value == null) return null;
+    if (_headers is EqualUnmodifiableMapView) return _headers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
-    return 'GoogleAuthState(account: $account, client: $client)';
+    return 'GoogleAuthState(account: $account, client: $client, headers: $headers)';
   }
 
   @override
@@ -452,11 +482,13 @@ class _$_GoogleAuthState implements _GoogleAuthState {
         (other.runtimeType == runtimeType &&
             other is _$_GoogleAuthState &&
             (identical(other.account, account) || other.account == account) &&
-            (identical(other.client, client) || other.client == client));
+            (identical(other.client, client) || other.client == client) &&
+            const DeepCollectionEquality().equals(other._headers, _headers));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, account, client);
+  int get hashCode => Object.hash(runtimeType, account, client,
+      const DeepCollectionEquality().hash(_headers));
 
   @JsonKey(ignore: true)
   @override
@@ -467,36 +499,39 @@ class _$_GoogleAuthState implements _GoogleAuthState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
   }) {
-    return $default(account, client);
+    return $default(account, client, headers);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult? Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
   }) {
-    return $default?.call(account, client);
+    return $default?.call(account, client, headers);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(GoogleSignInAccount? account, AuthClient? client)?
+    TResult Function(GoogleSignInAccount? account, AuthClient? client,
+            Map<String, String>? headers)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(account, client);
+      return $default(account, client, headers);
     }
     return orElse();
   }
@@ -539,11 +574,13 @@ class _$_GoogleAuthState implements _GoogleAuthState {
 abstract class _GoogleAuthState implements GoogleAuthState {
   const factory _GoogleAuthState(
       {required final GoogleSignInAccount? account,
-      required final AuthClient? client}) = _$_GoogleAuthState;
+      required final AuthClient? client,
+      required final Map<String, String>? headers}) = _$_GoogleAuthState;
 
   GoogleSignInAccount? get account;
   @override
   AuthClient? get client;
+  Map<String, String>? get headers;
   @override
   @JsonKey(ignore: true)
   _$$_GoogleAuthStateCopyWith<_$_GoogleAuthState> get copyWith =>
