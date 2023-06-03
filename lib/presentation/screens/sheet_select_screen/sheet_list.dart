@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:googleapis/drive/v3.dart';
 import 'package:tms/logic/blocs/authentication/google_auth_cubit.dart';
 import 'package:tms/logic/blocs/sheets_list/sheets_list_cubit.dart';
@@ -43,48 +44,47 @@ class _SheetListState extends State<SheetList> {
                 mainAxisSpacing: 10,
                 crossAxisCount: 2,
                 children: files.map((file) {
-                  return InkWell(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    splashColor: Colors.blue,
-                    onTap: () {
-                      // todo: go to details screen
-                    },
-                    child: GestureDetector(
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.white70,
+                  return Ink(
+                    decoration: const BoxDecoration(
+                      color: Color(0x10000000),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      onTap: () {
+                        // todo: go to details screen
+                      },
+                      child: GestureDetector(
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Expanded(
                                 child: CachedNetworkImage(
                                   imageUrl: file.thumbnailLink!,
-                                  cacheKey: "${file.id}1",
+                                  cacheKey: "${file.id}9",
                                   httpHeaders: headers,
                                   imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.2),
-                                                spreadRadius: 2,
-                                                blurRadius: 3,
-                                                offset: const Offset(0,
-                                                    0), // changes position of shadow
-                                              ),
-                                            ],
-                                          ),
-                                          child: Image(image: imageProvider)),
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
+                                      Image(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
+                                  placeholder: (context, url) =>
+                                      SvgPicture.asset(
+                                    "assets/icons/sheet.svg",
+                                    fit: BoxFit.contain,
+                                  ),
                                   errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
+                                      SvgPicture.asset(
+                                    "assets/icons/sheet.svg",
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
-                              Expanded(
+                              Container(
+                                padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
                                 child: Center(
                                   child: Text(
                                     "${file.name}",
