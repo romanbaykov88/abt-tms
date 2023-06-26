@@ -4,16 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:googleapis/drive/v3.dart';
 import 'package:tms/logic/blocs/authentication/google_auth_cubit.dart';
-import 'package:tms/logic/blocs/sheets_list/sheets_list_cubit.dart';
+import 'package:tms/presentation/screens/document/document_screen.dart';
+import 'package:tms/presentation/screens/document/document_arguments.dart';
+import 'package:tms/logic/blocs/documents_list/documents_list_cubit.dart';
 
-class SheetList extends StatefulWidget {
-  const SheetList({super.key});
+class DocumentList extends StatefulWidget {
+  const DocumentList({super.key});
 
   @override
-  State<SheetList> createState() => _SheetListState();
+  State<DocumentList> createState() => _DocumentListState();
 }
 
-class _SheetListState extends State<SheetList> {
+class _DocumentListState extends State<DocumentList> {
   Map<String, String>? headers;
 
   void updateHeaders(GoogleAuthState state) {
@@ -30,7 +32,7 @@ class _SheetListState extends State<SheetList> {
       listener: (context, state) {
         updateHeaders(state);
       },
-      child: BlocBuilder<SheetsListCubit, SheetsListState>(
+      child: BlocBuilder<DocumentsListCubit, DocumentsListState>(
         builder: (context, state) {
           return state.when((FileList fileList) {
             final files = fileList.files;
@@ -52,7 +54,7 @@ class _SheetListState extends State<SheetList> {
                     child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       onTap: () {
-                        // todo: go to details screen
+                        Navigator.of(context).pushNamed(DocumentScreen.routeName, arguments: DocumentArguments(file: file));
                       },
                       child: GestureDetector(
                         child: Container(
@@ -63,7 +65,7 @@ class _SheetListState extends State<SheetList> {
                               Expanded(
                                 child: CachedNetworkImage(
                                   imageUrl: file.thumbnailLink!,
-                                  cacheKey: "${file.id}9",
+                                  cacheKey: "${file.id}",
                                   httpHeaders: headers,
                                   imageBuilder: (context, imageProvider) =>
                                       Image(
@@ -102,7 +104,7 @@ class _SheetListState extends State<SheetList> {
                 }).toList(),
               );
             }
-            return const Text("no files");
+            return const Text("no files"); //todo: change;
           },
               initial: () => const Center(child: CircularProgressIndicator()),
               loading: () => const Center(child: CircularProgressIndicator()),

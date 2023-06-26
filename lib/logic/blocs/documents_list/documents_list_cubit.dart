@@ -5,38 +5,38 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:googleapis/drive/v3.dart';
 import 'package:tms/logic/blocs/authentication/google_auth_cubit.dart';
 
-part 'sheets_list_state.dart';
+part 'documents_list_state.dart';
 
-part 'sheets_list_cubit.freezed.dart';
+part 'documents_list_cubit.freezed.dart';
 
-class SheetsListCubit extends Cubit<SheetsListState> {
+class DocumentsListCubit extends Cubit<DocumentsListState> {
   GoogleAuthCubit? _googleAuthCubit;
   StreamSubscription? _googleSignInListener;
 
-  SheetsListCubit(GoogleAuthCubit? googleAuthCubit)
-      : super(const SheetsListState.initial()) {
+  DocumentsListCubit(GoogleAuthCubit? googleAuthCubit)
+      : super(const DocumentsListState.initial()) {
     _googleAuthCubit = googleAuthCubit;
     _googleSignInListener =
         _googleAuthCubit?.stream.listen((GoogleAuthState event) {
       event.when((account, client, headers) {
-        getSheetsList();
+        getDocumentsList();
       }, initial: (client) {}, loading: (client) {});
     });
-    getSheetsList();
+    getDocumentsList();
   }
 
-  Future<void> getSheetsList() async {
+  Future<void> getDocumentsList() async {
     final client = _googleAuthCubit?.state.client;
     if (client != null) {
-      emit(const SheetsListState.loading());
+      emit(const DocumentsListState.loading());
       final DriveApi driveApi = DriveApi(client);
       final FileList fileList = await driveApi.files.list(
           q: 'mimeType = \'application/vnd.google-apps.spreadsheet\'',
           $fields: "files(id, name, mimeType, thumbnailLink)",
           pageSize: 100);
-      emit(SheetsListState(fileList: fileList));
+      emit(DocumentsListState(fileList: fileList));
     } else {
-      emit(const SheetsListState.error());
+      emit(const DocumentsListState.error());
     }
   }
 

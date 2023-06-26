@@ -8,21 +8,6 @@ void main() {
   runApp(MyApp(key: const ValueKey('abt-tms'), appRouter: AppRouter()));
 }
 
-// // Retrieve an [auth.AuthClient] from the current [GoogleSignIn] instance.
-// final auth.AuthClient? client = await _googleSignIn.authenticatedClient();
-//
-// assert(client != null, 'Authenticated client missing!');
-//
-// // Prepare a People Service authenticated client.
-// final SheetsApi peopleApi = SheetsApi(client!);
-// final DriveApi driveApi = DriveApi(client);
-// final filesList = await driveApi.files.list(
-// q: 'mimeType = \'application/vnd.google-apps.spreadsheet\'',
-// pageSize: 100);
-// for (var file in filesList.files!) {
-// log('${file.name} ${file.id}');
-// }
-
 class MyApp extends StatelessWidget {
   final AppRouter appRouter;
 
@@ -43,6 +28,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         onGenerateRoute: appRouter.onGenerateRoute,
+        navigatorKey: AppRouter.primaryRouterKey,
       ),
     );
   }
