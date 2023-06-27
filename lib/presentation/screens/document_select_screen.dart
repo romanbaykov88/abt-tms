@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tms/logic/blocs/authentication/google_auth_cubit.dart';
-import 'package:tms/presentation/screens/document_select_screen/document_list.dart';
+import 'package:tms/presentation/widgets/document_list.dart';
 
 class DocumentSelectScreen extends StatelessWidget {
   const DocumentSelectScreen({super.key});
