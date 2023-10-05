@@ -15,20 +15,15 @@ class CargoCard extends StatelessWidget {
         : cargoDetails.dispatcher!
             .substring(0, min(cargoDetails.dispatcher!.length, 2))
             .toUpperCase();
-    final color = Color.fromRGBO(
-        ((cargoDetails.color!.red ?? 0) * 255).round(),
-        ((cargoDetails.color!.green ?? 0) * 255).round(),
-        ((cargoDetails.color!.blue ?? 0) * 255).round(),
-        1);
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
+      padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       child: Ink(
         decoration: BoxDecoration(
           color: const Color(0x10000000),
           border: Border(
-            left: BorderSide(width: 16.0, color: color),
+            left: BorderSide(width: 16.0, color: cargoDetails.color),
           ),
-          //borderRadius: const BorderRadius.all(Radius.circular(10)),
+          // borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(10)),

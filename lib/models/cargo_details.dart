@@ -1,3 +1,4 @@
+import 'package:flutter/painting.dart' as Painting;
 import 'package:googleapis/sheets/v4.dart';
 
 class CargoDetails {
@@ -20,7 +21,16 @@ class CargoDetails {
   final String? deliveryDate;
   final String? deliveryTime;
   final String? deliveryCity;
-  final Color? color;
+  final Painting.Color color;
+
+  static transformColor(Color? rgbColor){
+    Painting.Color color = Painting.Color.fromRGBO(
+        ((rgbColor!.red ?? 0) * 255).round(),
+        ((rgbColor.green ?? 0) * 255).round(),
+        ((rgbColor.blue ?? 0) * 255).round(),
+        1);
+    return color;
+  }
 
   CargoDetails.fromGrid(RowData row)
       : washingtonDate = row.values?[0].formattedValue,
@@ -42,5 +52,5 @@ class CargoDetails {
         deliveryDate = row.values?[28].formattedValue,
         deliveryTime = row.values?[29].formattedValue,
         deliveryCity = row.values?[30].formattedValue,
-        color = row.values?[0].effectiveFormat?.backgroundColorStyle?.rgbColor;
+        color = CargoDetails.transformColor(row.values?[0].effectiveFormat?.backgroundColorStyle?.rgbColor);
 }
