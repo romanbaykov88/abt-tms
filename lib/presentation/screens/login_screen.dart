@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
         ),
         BlocListener<GoogleAuthCubit, GoogleAuthState>(
           listener: (context, state) {
-            state.when((account, client, headers) {
+            state.when((account, client, headers, sheetsApi) {
               if (account != null) {
                 Navigator.of(context).pushReplacementNamed('/select');
               }

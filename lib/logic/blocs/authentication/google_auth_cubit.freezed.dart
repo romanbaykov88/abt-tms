@@ -20,7 +20,7 @@ mixin _$GoogleAuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)
+            Map<String, String>? headers, SheetsApi? sheetsApi)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
@@ -29,7 +29,7 @@ mixin _$GoogleAuthState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
@@ -38,7 +38,7 @@ mixin _$GoogleAuthState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
@@ -172,7 +172,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)
+            Map<String, String>? headers, SheetsApi? sheetsApi)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
@@ -184,7 +184,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
@@ -196,7 +196,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
@@ -320,7 +320,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)
+            Map<String, String>? headers, SheetsApi? sheetsApi)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
@@ -332,7 +332,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
@@ -344,7 +344,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
@@ -413,7 +413,8 @@ abstract class _$$_GoogleAuthStateCopyWith<$Res>
   $Res call(
       {GoogleSignInAccount? account,
       AuthClient? client,
-      Map<String, String>? headers});
+      Map<String, String>? headers,
+      SheetsApi? sheetsApi});
 }
 
 /// @nodoc
@@ -430,6 +431,7 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
     Object? account = freezed,
     Object? client = freezed,
     Object? headers = freezed,
+    Object? sheetsApi = freezed,
   }) {
     return _then(_$_GoogleAuthState(
       account: freezed == account
@@ -444,6 +446,10 @@ class __$$_GoogleAuthStateCopyWithImpl<$Res>
           ? _value._headers
           : headers // ignore: cast_nullable_to_non_nullable
               as Map<String, String>?,
+      sheetsApi: freezed == sheetsApi
+          ? _value.sheetsApi
+          : sheetsApi // ignore: cast_nullable_to_non_nullable
+              as SheetsApi?,
     ));
   }
 }
@@ -454,7 +460,8 @@ class _$_GoogleAuthState implements _GoogleAuthState {
   const _$_GoogleAuthState(
       {required this.account,
       required this.client,
-      required final Map<String, String>? headers})
+      required final Map<String, String>? headers,
+      required this.sheetsApi})
       : _headers = headers;
 
   @override
@@ -472,8 +479,11 @@ class _$_GoogleAuthState implements _GoogleAuthState {
   }
 
   @override
+  final SheetsApi? sheetsApi;
+
+  @override
   String toString() {
-    return 'GoogleAuthState(account: $account, client: $client, headers: $headers)';
+    return 'GoogleAuthState(account: $account, client: $client, headers: $headers, sheetsApi: $sheetsApi)';
   }
 
   @override
@@ -483,12 +493,14 @@ class _$_GoogleAuthState implements _GoogleAuthState {
             other is _$_GoogleAuthState &&
             (identical(other.account, account) || other.account == account) &&
             (identical(other.client, client) || other.client == client) &&
-            const DeepCollectionEquality().equals(other._headers, _headers));
+            const DeepCollectionEquality().equals(other._headers, _headers) &&
+            (identical(other.sheetsApi, sheetsApi) ||
+                other.sheetsApi == sheetsApi));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, account, client,
-      const DeepCollectionEquality().hash(_headers));
+      const DeepCollectionEquality().hash(_headers), sheetsApi);
 
   @JsonKey(ignore: true)
   @override
@@ -500,38 +512,38 @@ class _$_GoogleAuthState implements _GoogleAuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)
+            Map<String, String>? headers, SheetsApi? sheetsApi)
         $default, {
     required TResult Function(AuthClient? client) initial,
     required TResult Function(AuthClient? client) loading,
   }) {
-    return $default(account, client, headers);
+    return $default(account, client, headers, sheetsApi);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult? Function(AuthClient? client)? initial,
     TResult? Function(AuthClient? client)? loading,
   }) {
-    return $default?.call(account, client, headers);
+    return $default?.call(account, client, headers, sheetsApi);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(GoogleSignInAccount? account, AuthClient? client,
-            Map<String, String>? headers)?
+            Map<String, String>? headers, SheetsApi? sheetsApi)?
         $default, {
     TResult Function(AuthClient? client)? initial,
     TResult Function(AuthClient? client)? loading,
     required TResult orElse(),
   }) {
     if ($default != null) {
-      return $default(account, client, headers);
+      return $default(account, client, headers, sheetsApi);
     }
     return orElse();
   }
@@ -575,12 +587,14 @@ abstract class _GoogleAuthState implements GoogleAuthState {
   const factory _GoogleAuthState(
       {required final GoogleSignInAccount? account,
       required final AuthClient? client,
-      required final Map<String, String>? headers}) = _$_GoogleAuthState;
+      required final Map<String, String>? headers,
+      required final SheetsApi? sheetsApi}) = _$_GoogleAuthState;
 
   GoogleSignInAccount? get account;
   @override
   AuthClient? get client;
   Map<String, String>? get headers;
+  SheetsApi? get sheetsApi;
   @override
   @JsonKey(ignore: true)
   _$$_GoogleAuthStateCopyWith<_$_GoogleAuthState> get copyWith =>

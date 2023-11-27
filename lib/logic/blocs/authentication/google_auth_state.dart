@@ -10,5 +10,6 @@ class GoogleAuthState with _$GoogleAuthState {
     required GoogleSignInAccount? account,
     required AuthClient? client,
     required Map<String, String>? headers,
+    required SheetsApi? sheetsApi,
   }) = _GoogleAuthState;
 }

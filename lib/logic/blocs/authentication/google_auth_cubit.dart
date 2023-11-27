@@ -32,8 +32,9 @@ class GoogleAuthCubit extends Cubit<GoogleAuthState> {
     emit(const GoogleAuthState.loading());
     GoogleSignInAccount? account = await _googleSignIn.signIn();
     AuthClient? client = await _googleSignIn.authenticatedClient();
+    final SheetsApi? sheetsApi = client != null ? SheetsApi(client) : null;
     final Map<String, String>? headers = await account?.authHeaders;
-    return emit(GoogleAuthState(account: account, client: client, headers: headers));
+    return emit(GoogleAuthState(account: account, client: client, headers: headers, sheetsApi: sheetsApi));
   }
 
   Future<void> signInSilently() async {
@@ -42,16 +43,17 @@ class GoogleAuthCubit extends Cubit<GoogleAuthState> {
     if (account == null) {
       return await signIn();
     }
-    final Map<String, String> headers = await account.authHeaders;
     AuthClient? client = await _googleSignIn.authenticatedClient();
-    return emit(GoogleAuthState(account: account, client: client, headers: headers));
+    final SheetsApi? sheetsApi = client != null ? SheetsApi(client) : null;
+    final Map<String, String>? headers = await account?.authHeaders;
+    return emit(GoogleAuthState(account: account, client: client, headers: headers, sheetsApi: sheetsApi));
   }
 
   Future<void> signOut() async {
     GoogleSignInAccount? account = await _googleSignIn.signOut();
     AuthClient? client = await _googleSignIn.authenticatedClient();
     final Map<String, String>? headers = await account?.authHeaders;
-    return emit(GoogleAuthState(account: account, client: client, headers: headers));
+    return emit(GoogleAuthState(account: account, client: client, headers: headers, sheetsApi: null));
   }
 
   @override

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tms/logic/blocs/editor/editor_cubit.dart';
 import 'package:tms/logic/blocs/sheet/sheet_cubit.dart';
 import 'package:tms/presentation/screens/document/document_screen.dart';
 import 'package:tms/presentation/screens/document/document_arguments.dart';
+import 'package:tms/presentation/screens/document/editor_screen.dart';
+import 'package:tms/presentation/screens/document/editor_screen_arguments.dart';
 import 'package:tms/presentation/screens/document/sheet_screen.dart';
 import 'package:tms/presentation/screens/document/sheet_screen_arguments.dart';
 import 'package:tms/presentation/screens/error.dart';
@@ -45,6 +48,16 @@ class AppRouter {
                           child: SheetScreen(
                             arguments: documentRouteSettings.arguments
                                 as SheetScreenArguments,
+                          ),
+                        );
+                      });
+                    case '/edit':
+                      return MaterialPageRoute(builder: (context) {
+                        return BlocProvider(
+                          create: (context) => EditorCubit(),
+                          child: EditorScreen(
+                            arguments: documentRouteSettings.arguments
+                                as EditorScreenArguments,
                           ),
                         );
                       });

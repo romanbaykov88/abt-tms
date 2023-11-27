@@ -18,7 +18,7 @@ class DocumentsListCubit extends Cubit<DocumentsListState> {
     _googleAuthCubit = googleAuthCubit;
     _googleSignInListener =
         _googleAuthCubit?.stream.listen((GoogleAuthState event) {
-      event.when((account, client, headers) {
+      event.when((account, client, headers, sheetsApi) {
         getDocumentsList();
       }, initial: (client) {}, loading: (client) {});
     });

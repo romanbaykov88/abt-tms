@@ -20,7 +20,7 @@ class _DocumentListState extends State<DocumentList> {
 
   void updateHeaders(GoogleAuthState state) {
     setState(() {
-      headers = state.when((account, client, headers) => headers,
+      headers = state.when((account, client, headers, sheetsApi) => headers,
           initial: (client) => null, loading: (client) => null);
     });
   }

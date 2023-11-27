@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:googleapis/drive/v3.dart';
 import 'package:googleapis/sheets/v4.dart';
 import 'package:tms/logic/blocs/authentication/google_auth_cubit.dart';
-import 'package:tms/google_auth_client.dart';
 
 part 'document_file_state.dart';
 
@@ -19,13 +18,11 @@ class DocumentFileCubit extends Cubit<DocumentFileState> {
 
   openFile(File file) async {
     emit(const DocumentFileState.loading());
-    final Map<String, String>? headers = _googleAuthCubit?.state.when(
-        (account, client, headers) => headers,
-        initial: (client) => null,
-        loading: (client) => null);
-    if (headers != null) {
-      final client = GoogleAuthClient(headers);
-      final SheetsApi sheetsApi = SheetsApi(client);
+    final SheetsApi? sheetsApi = _googleAuthCubit?.state.when(
+        (account, client, headers, sheetsApi) => sheetsApi,
+        initial: (sheetsApi) => null,
+        loading: (sheetsApi) => null);
+    if (sheetsApi != null) {
       final Spreadsheet document = await sheetsApi.spreadsheets.get(
         file.id!,
         //includeGridData: true,
